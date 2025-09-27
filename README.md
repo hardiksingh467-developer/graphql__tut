@@ -47,4 +47,5 @@ Initialize a react project using vite
 
 Navigate to URL for React docs: https://www.apollographql.com/docs/react/get-started
 there we will find command: npm install @apollo/client graphql rxjs
+Now follow the the documentation after that
 ```
