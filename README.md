@@ -49,3 +49,61 @@ Navigate to URL for React docs: https://www.apollographql.com/docs/react/get-sta
 there we will find command: npm install @apollo/client graphql rxjs
 Now follow the the documentation after that
 ```
+
+
+
+## Threads Clone Backend using GraphQL
+```
+This is where we will create a Backend which is well structured for GraphQL implementation
+We will have the Threads App launched by Meta in 2023 as a Case Study to understand How an Actual GraphQL server looks like
+```
+```
+First a small Recall of GraphQL and planning of upcoming project
+
+In GraphQL we mainly have two things
+Queries and Mutations
+
+Queries are used for all the READ operations
+Whereas Mutations are used for all the CREATE, UPDATE and DELETE operations
+
+So for a Threads app, if a used wants to READ the threads of other users or of his own, he will call the specific queries defined in the Backend and if the user wants to CREATE, UPDATE or DELETE a thread , they will use Mutations defined in the Server Side Application
+
+In these Queries and Mutation we add our own Schema, we have a Schema layer
+A Schema is a layer which stands before the Queries and Mutations 
+So an example schema would look like
+Thread {
+    id
+    title
+    description
+    userId
+}
+
+User {
+    id
+    name
+    email
+    profileImage
+}
+
+So in GraphQL whenever we want to fetch any data, we need to specify what specific data do we need
+
+In Queries and Mutations each have their own, something called as resolvers
+Resolvers are the actual code that is executed
+When the Frontend passes a Query or a Mutation it calls in the resolver in our Backend using the same name as it is specified, so we can say that resolvers also possess the capability to specify new routes or endpoints
+
+Now no matter how we return data in our controller or function, the Schema layer will simply return the data in which the Client Side Application has requested
+
+Now in the resolver we can simply write the Data Fetching Logic or other operations, but it is not recommended, as this approach results in Tight Coupling of Data
+
+When we may need to break a monolithic application utilizing GraphQL to Microservices Application also utilizing GraphQL, we will have extreme difficulties in reusing the resolvers
+So approaching the development and design of resolvers in an over complicated way might be a great idea for a longer run
+```
+
+```
+Now to solve the Tight Coupling we solved above, we will introduce a Service Layer
+Service Layer will be responsible for performing all the CRUD operations
+So continuing with the current scenario where we have a Thread entity and a User entity, we can create two services `threadService.js` and `userService.js`
+threadService.js will contain all the CRUD operations around thread and userService will contain all the CRUD operations around user
+
+so now in queries instead of passing raw Database queries we can now call, threadService.readAllThreads();
+```
